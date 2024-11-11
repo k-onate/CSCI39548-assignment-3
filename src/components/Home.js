@@ -13,7 +13,7 @@ class Home extends Component {
       <div>
         <img src="https://picsum.photos/200/200" alt="bank"/>
 
-        <h1>Bank of React</h1>
+        <h1>Does this change anything?</h1>
 
         <Link to="/userProfile">User Profile</Link>
         <br/>
