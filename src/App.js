@@ -7,6 +7,8 @@ It contains the top-level state.
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
+import axios from 'axios';
+
 // Import other components
 import Home from './components/Home';
 import UserProfile from './components/UserProfile';
@@ -28,12 +30,34 @@ class App extends Component {
     };
   }
 
+  // trying to make an API call to retrive data from remote website
+  async componentDidMount()
+  {
+    let linkToAPI = 'https://johnnylaicode.github.io/api/credits.json';
+
+    try {
+      let response = await axios.get(linkToAPI);
+      console.log(response);
+      this.setState({creditList: response.data});
+    }
+     catch(error)
+    {
+      if(error.response) {
+        console.log(error.response.data);
+      }
+    }
+  }
+
+
   // Update state's currentUser (userName) after "Log In" button is clicked
   mockLogIn = (logInInfo) => {  
     const newUser = {...this.state.currentUser};
     newUser.userName = logInInfo.userName;
-    this.setState({currentUser: newUser})
-  }
+    this.setState({currentUser: newUser});
+}
+
+  setCredits = (newCredits) => { this.setState({creditList: newCredits}); }
+  setAccountBalance = (newBalance) => { this.setState({accountBalance: newBalance}); }
 
   // Create Routes and React elements to be rendered using React components
   render() {  
@@ -43,7 +67,13 @@ class App extends Component {
       <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince} />
     )
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
-    const CreditsComponent = () => (<Credits credits={this.state.creditList} />) 
+    const CreditsComponent = () => (
+      <Credits 
+        credits = {this.state.creditList} 
+        accountBalance = {this.state.accountBalance}
+        setCredits = {this.setCredits}
+        setAccountBalance = {this.setAccountBalance}
+      />) 
     const DebitsComponent = () => (<Debits debits={this.state.debitList} />) 
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
