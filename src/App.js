@@ -20,7 +20,7 @@ class App extends Component {
   constructor() {  // Create and initialize state
     super(); 
     this.state = {
-      accountBalance: 1234567.89,
+      accountBalance: 0.00,
       creditList: [],
       debitList: [],
       currentUser: {
@@ -33,16 +33,30 @@ class App extends Component {
   // trying to make an API call to retrive data from remote website
   async componentDidMount()
   {
-    let linkToAPI = 'https://johnnylaicode.github.io/api/credits.json';
+    let creditsAPI = 'https://johnnylaicode.github.io/api/credits.json';
 
     try {
-      let response = await axios.get(linkToAPI);
+      let response = await axios.get(creditsAPI);
       console.log(response);
       this.setState({creditList: response.data});
     }
      catch(error)
     {
       if(error.response) {
+        console.log(error.response.data);
+      }
+    }
+
+    let debitsAPI = "https://johnnylaicode.github.io/api/credits.json";
+
+    try {
+      let response = await axios.get(debitsAPI);
+      console.log(response);
+      this.setState({debitList: response.data});
+    }
+    catch(error)
+    {
+      if(error.reponse) {
         console.log(error.response.data);
       }
     }
@@ -57,6 +71,8 @@ class App extends Component {
 }
 
   setCredits = (newCredits) => { this.setState({creditList: newCredits}); }
+  setDebits = (newDebits) => {this.setState({debitList: newDebits}); }
+
   setAccountBalance = (newBalance) => { this.setState({accountBalance: newBalance}); }
 
   // Create Routes and React elements to be rendered using React components
@@ -74,7 +90,13 @@ class App extends Component {
         setCredits = {this.setCredits}
         setAccountBalance = {this.setAccountBalance}
       />) 
-    const DebitsComponent = () => (<Debits debits={this.state.debitList} />) 
+    const DebitsComponent = () => (
+      <Debits 
+        debits={this.state.debitList} 
+        accountBalance = {this.state.accountBalance}
+        setDebits = {this.setDebits}
+        setAccountBalance = {this.setAccountBalance}
+      />) 
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (

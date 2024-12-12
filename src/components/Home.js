@@ -13,15 +13,15 @@ class Home extends Component {
       <div>
         <img src="https://picsum.photos/200/200" alt="bank"/>
 
-        <h1>In Progress: Getting credits to work</h1>
+        <h1>In Progress: Getting debits to work</h1>
 
         <Link to="/userProfile">User Profile</Link>
         <br/>
         <Link to="/login">Login</Link>
         <br/>
-        <Link to="/credits">Credits (implementing)</Link>
+        <Link to="/credits">Credits (done?)</Link>
         <br/>
-        <Link to="/debits">Debits (to be implemented in the Assignment)</Link>
+        <Link to="/debits">Debits (done?)</Link>
         <br/><br/>
         <AccountBalance accountBalance={this.props.accountBalance}/>
       </div>
