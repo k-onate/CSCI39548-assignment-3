@@ -18,6 +18,7 @@ const Credits = ({credits, setCredits, accountBalance, setAccountBalance}) => {
   { 
     e.preventDefault();
 
+    //initialize credit object
     const newCredit = { 
       id: credits.length + 1, 
       description: description, 
@@ -36,6 +37,7 @@ const Credits = ({credits, setCredits, accountBalance, setAccountBalance}) => {
     setAmount(''); 
   };
 
+  //displays credits in a list
   let creditsView = () => 
     {
       return credits.map((credit) => {
@@ -57,9 +59,8 @@ const Credits = ({credits, setCredits, accountBalance, setAccountBalance}) => {
       });
     };
 
-  //displays list of credits with a form for user to add a new credit
+  //contains form for user to add a new credit item to the list displayed (at the bottom)
   return (
-
     <div>
       <h1>Credits</h1>
       <h2>Account Balance: ${accountBalance}</h2>
@@ -93,103 +94,6 @@ const Credits = ({credits, setCredits, accountBalance, setAccountBalance}) => {
       <Link to="/">Return to Home</Link> 
     </div>
   );  
-
-    /*
-    <div>
-      <h1>Credits</h1>
-      <h2> Account Balance: ${accountBalance}</h2>
-
-      <form onSubmit={ (e) => {e.preventDefault(); addCredit(); }}>
-        <div>
-          <label>Description: </label>
-          <input
-            type = 'text'
-            value = {description}
-            onChange = {(e) =>setDescription(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label> Amount: </label>
-          <input
-            type = "number"
-            step = "0.01"
-            value = {amount}
-            onChange = {(e) => setAmount (e.target.value)}
-            required
-          />
-        </div>
-        <button type = "submit">Add Credit</button>
-      </form>
-      <ul>
-        {credits.map((credit) => (
-          <li key = {credit.id}>
-            <div>
-              <strong> Description: </strong> {credit.description}
-            </div>
-            <div>
-              <strong>Amount: </strong> ${credit.amount}
-            </div>
-            <div>
-              <strong>Date: </strong> {new Date(credit.date).toLocaleString()}
-            </div>
-            <hr/>
-          </li>
-        ))}
-      </ul>
-      <Link to="/">Return to Home</Link>
-    </div>
-    */
-  
 }
 
 export default Credits;
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-
-  let creditsView = () => {
-    const { credits } = props;
-    console.log(credits);
-
-    return credits.map((credit) => {
-      let date = credit.date.slice(0,10);
-      return <li key = {credit.id}> {credit.amount} {credit.description} {date} </li>   
-    });
-  }
-
-  addCredit = () => {
-    console.log("BUTTON");
-    const {credit} = props;
-  }
-
-  return (
-    <div>
-      <h1>Credits</h1>
-
-      {creditsView()}
-
-      <form onSubmit = {props.addCredit}>
-        <input type="text" name="description"/>
-        <input type="number" name="amount"/>
-        <button type="submit">Add Credit</button>
-      </form>
-      <br/>
-      <Link to="/">Return to Home</Link>
-    </div>
-  );
-}
-
-export default Credits;
-
-*/

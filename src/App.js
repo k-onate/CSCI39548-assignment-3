@@ -20,7 +20,7 @@ class App extends Component {
   constructor() {  // Create and initialize state
     super(); 
     this.state = {
-      accountBalance: 0.00,
+      accountBalance: 0,
       creditList: [],
       debitList: [],
       currentUser: {
@@ -30,7 +30,7 @@ class App extends Component {
     };
   }
 
-  // trying to make an API call to retrive data from remote website
+  // tries to make an API call to retrive data from remote website
   async componentDidMount()
   {
     let creditsAPI = 'https://johnnylaicode.github.io/api/credits.json';
@@ -70,6 +70,7 @@ class App extends Component {
     this.setState({currentUser: newUser});
 }
 
+  //setting up mutator functions for credit and debit pages
   setCredits = (newCredits) => { this.setState({creditList: newCredits}); }
   setDebits = (newDebits) => {this.setState({debitList: newDebits}); }
 
@@ -83,6 +84,7 @@ class App extends Component {
       <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince} />
     )
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
+
     const CreditsComponent = () => (
       <Credits 
         credits = {this.state.creditList} 
@@ -90,6 +92,7 @@ class App extends Component {
         setCredits = {this.setCredits}
         setAccountBalance = {this.setAccountBalance}
       />) 
+
     const DebitsComponent = () => (
       <Debits 
         debits={this.state.debitList} 
